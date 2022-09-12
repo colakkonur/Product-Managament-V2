@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using ProductManagement.Application.Interfaces;
-using ProductManagement.Application.Queries.GetProducts;
+using ProductManagement.Application.Queries.Product.GetProducts;
 using ProductManagement.Infrastructure.Contexts;
 using ProductManagement.Infrastructure.Repositories;
 using ProductManagement.Infrastructure.Services;

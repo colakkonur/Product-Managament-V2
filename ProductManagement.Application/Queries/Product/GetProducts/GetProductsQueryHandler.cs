@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using ProductManagement.Application.Interfaces;
 
-namespace ProductManagement.Application.Queries.GetProducts;
+namespace ProductManagement.Application.Queries.Product.GetProducts;
 
 public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, List<GetProductsQueryResponse>>
 {

@@ -1,6 +1,6 @@
 ﻿using ProductManagement.Application.Interfaces;
-using ProductManagement.Application.Queries.GetProductById;
-using ProductManagement.Application.Queries.GetProducts;
+using ProductManagement.Application.Queries.Product.GetProductById;
+using ProductManagement.Application.Queries.Product.GetProducts;
 
 namespace ProductManagement.Infrastructure.Services;
 

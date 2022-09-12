@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ProductManagement.Application.Queries.GetProductById;
-using ProductManagement.Application.Queries.GetProducts;
+using ProductManagement.Application.Queries.Product.GetProductById;
+using ProductManagement.Application.Queries.Product.GetProducts;
 
 namespace ProductManagement.Api.Controllers;
 
