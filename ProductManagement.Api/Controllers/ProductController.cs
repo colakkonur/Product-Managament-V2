@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ProductManagement.Application.Commands.Product;
 using ProductManagement.Application.Queries.Product.GetProductById;
 using ProductManagement.Application.Queries.Product.GetProducts;
 
@@ -37,5 +38,12 @@ public class ProductController : ControllerBase
             return NotFound(response);
         }
         return Ok(response);
+    }
+    
+    [HttpPost(Name = "PostProduct")]
+    public async Task<IActionResult> Post(CreateProductCommand createProductCommand)
+    {
+        await _mediator.Send(createProductCommand);
+        return Ok();
     }
 }

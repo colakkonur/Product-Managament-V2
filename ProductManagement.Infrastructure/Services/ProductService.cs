@@ -1,6 +1,8 @@
-﻿using ProductManagement.Application.Interfaces;
+﻿using ProductManagement.Application.Commands.Product;
+using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Queries.Product.GetProductById;
 using ProductManagement.Application.Queries.Product.GetProducts;
+using ProductManagement.Domain.Entities;
 
 namespace ProductManagement.Infrastructure.Services;
 
@@ -67,5 +69,28 @@ public class ProductService : IProductService
             };
             return vProductResponse;
         }
+    }
+
+    public async Task AddProduct(CreateProductCommand product)
+    {
+        await _productRepository.CreateProduct(new Product()
+        {
+            Title = product.Title,
+            Description = product.Description,
+            Tags = product.Tags,
+            Quantity = product.Quantity,
+            CategoryId = product.CategoryId,
+            Prices = new Price()
+            {
+                TaxRate = product.Prices.TaxRate,
+                TaxAmount = product.Prices.TaxAmount,
+                Margin = product.Prices.Margin,
+                ShippingCost = product.Prices.ShippingCost
+            },
+            Images = new Image()
+            { 
+                Path = (string.IsNullOrEmpty(product.Images.Path)? "default-img.jpg" : product.Images.Path)
+            }
+        });
     }
 }
