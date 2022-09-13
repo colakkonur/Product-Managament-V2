@@ -32,6 +32,24 @@ public class ProductRepository : IProductRepository
             .FirstOrDefaultAsync();
     }
 
+    public async Task<List<Product>> GetProductsByCategory(int id)
+    {
+        return await _context.Products.Where(w => w.CategoryId == id)
+            .Include(w => w.Category)
+            .Include(w => w.Images)
+            .Include(w => w.Prices)
+            .ToListAsync();
+    }
+
+    public async Task<List<Product>> GetProductBySearch(string key)
+    {
+        return await _context.Products.Where(w => w.Title.Contains(key))
+            .Include(w => w.Category)
+            .Include(w => w.Images)
+            .Include(w => w.Prices)
+            .ToListAsync();
+    }
+
     public async Task CreateProduct(Product product)
     {
         await _context.Products.AddAsync(product);

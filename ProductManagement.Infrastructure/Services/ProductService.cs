@@ -1,9 +1,10 @@
-﻿using ProductManagement.Application.Commands.Product;
-using ProductManagement.Application.Commands.Product.CreateProduct;
+﻿using ProductManagement.Application.Commands.Product.CreateProduct;
 using ProductManagement.Application.Commands.Product.UpdateProduct;
 using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Queries.Product.GetProductById;
 using ProductManagement.Application.Queries.Product.GetProducts;
+using ProductManagement.Application.Queries.Product.GetProductsByCategory;
+using ProductManagement.Application.Queries.Product.GetProductsBySearch;
 using ProductManagement.Domain.Entities;
 
 namespace ProductManagement.Infrastructure.Services;
@@ -73,6 +74,40 @@ public class ProductService : IProductService
         }
     }
 
+    public async Task<List<GetProductsByCategoryQueryResponse>> GetProductsByCategory(int id)
+    {
+        var vProducts = await _productRepository.GetProductsByCategory(id);
+        var vProductsResponse = vProducts.Select(products => new GetProductsByCategoryQueryResponse()
+        {
+            Id = products.Id,
+            Title = products.Title,
+            Description = products.Description,
+            Tags = products.Tags,
+            Image = products.Images.Path,
+            Quantity = products.Quantity,
+            Price = Convert.ToDouble(products.Prices.Price1),
+            Category = products.Category.Name
+        }).ToList();
+        return vProductsResponse;
+    }
+
+    public async Task<List<GetProductsBySearchQueryResponse>> GetProductsBySearch(string key)
+    {
+        var vProducts = await _productRepository.GetProductBySearch(key);
+        var vProductsResponse = vProducts.Select(products => new GetProductsBySearchQueryResponse()
+        {
+            Id = products.Id,
+            Title = products.Title,
+            Description = products.Description,
+            Tags = products.Tags,
+            Image = products.Images.Path,
+            Quantity = products.Quantity,
+            Price = Convert.ToDouble(products.Prices.Price1),
+            Category = products.Category.Name
+        }).ToList();
+        return vProductsResponse;
+    }
+
     public async Task AddProduct(CreateProductCommand product)
     {
         await _productRepository.CreateProduct(new Product()
@@ -90,8 +125,8 @@ public class ProductService : IProductService
                 ShippingCost = product.Prices.ShippingCost
             },
             Images = new Image()
-            { 
-                Path = (string.IsNullOrEmpty(product.Images.Path)? "default-img.jpg" : product.Images.Path)
+            {
+                Path = (string.IsNullOrEmpty(product.Images.Path) ? "default-img.jpg" : product.Images.Path)
             }
         });
     }

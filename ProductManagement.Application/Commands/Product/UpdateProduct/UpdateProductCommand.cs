@@ -1,5 +1,4 @@
-﻿using System.Xml.Serialization;
-using MediatR;
+﻿using MediatR;
 
 namespace ProductManagement.Application.Commands.Product.UpdateProduct;
 
@@ -14,6 +13,7 @@ public class UpdateProductCommand : IRequest
     public PriceForUpdate Prices { get; set; }
     public ImageForUpdate Images { get; set; }
 }
+
 public class PriceForUpdate
 {
     public double TaxRate { get; set; }
