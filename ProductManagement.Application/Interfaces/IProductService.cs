@@ -1,4 +1,5 @@
-﻿using ProductManagement.Application.Commands.Product;
+﻿using ProductManagement.Application.Commands.Product.CreateProduct;
+using ProductManagement.Application.Commands.Product.UpdateProduct;
 using ProductManagement.Application.Queries.Product.GetProductById;
 using ProductManagement.Application.Queries.Product.GetProducts;
 
@@ -9,4 +10,5 @@ public interface IProductService
     Task<List<GetProductsQueryResponse>> GetAllProducts();
     Task<GetProductByIdQueryResponse> GetProductById(int id);
     Task AddProduct(CreateProductCommand product);
+    Task UpdateProduct(UpdateProductCommand product);
 }

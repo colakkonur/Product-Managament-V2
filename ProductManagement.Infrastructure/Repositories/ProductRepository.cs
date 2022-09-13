@@ -42,8 +42,22 @@ public class ProductRepository : IProductRepository
 
     public async Task UpdateProduct(Product product)
     {
-        var vProduct = await _context.Products.FirstOrDefaultAsync(w => w.Id == product.Id);
+        var vProduct = await _context.Products
+            .Include(w => w.Category)
+            .Include(w => w.Images)
+            .Include(w => w.Prices)
+            .FirstOrDefaultAsync(w => w.Id == product.Id);
+
         vProduct.Title = product.Title;
+        vProduct.Description = product.Description;
+        vProduct.Tags = product.Tags;
+        vProduct.Quantity = product.Quantity;
+        vProduct.CategoryId = product.CategoryId;
+        vProduct.Prices.TaxRate = product.Prices.TaxRate;
+        vProduct.Prices.TaxAmount = product.Prices.TaxAmount;
+        vProduct.Prices.Margin = product.Prices.Margin;
+        vProduct.Prices.ShippingCost = product.Prices.ShippingCost;
+        vProduct.Images.Path = product.Images.Path;
         await _context.SaveChangesAsync();
     }
 

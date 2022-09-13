@@ -1,4 +1,6 @@
 ﻿using ProductManagement.Application.Commands.Product;
+using ProductManagement.Application.Commands.Product.CreateProduct;
+using ProductManagement.Application.Commands.Product.UpdateProduct;
 using ProductManagement.Application.Interfaces;
 using ProductManagement.Application.Queries.Product.GetProductById;
 using ProductManagement.Application.Queries.Product.GetProducts;
@@ -92,5 +94,30 @@ public class ProductService : IProductService
                 Path = (string.IsNullOrEmpty(product.Images.Path)? "default-img.jpg" : product.Images.Path)
             }
         });
+    }
+
+    public async Task UpdateProduct(UpdateProductCommand product)
+    {
+        var vProduct = new Product()
+        {
+            Id = product.Id,
+            Title = product.Title,
+            Description = product.Description,
+            Tags = product.Tags,
+            Quantity = product.Quantity,
+            CategoryId = product.CategoryId,
+            Prices = new Price()
+            {
+                TaxRate = product.Prices.TaxRate,
+                TaxAmount = product.Prices.TaxAmount,
+                Margin = product.Prices.Margin,
+                ShippingCost = product.Prices.ShippingCost
+            },
+            Images = new Image()
+            {
+                Path = product.Images.Path
+            }
+        };
+        await _productRepository.UpdateProduct(vProduct);
     }
 }

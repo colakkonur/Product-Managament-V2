@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ProductManagement.Application.Commands.Product;
+using ProductManagement.Application.Commands.Product.CreateProduct;
+using ProductManagement.Application.Commands.Product.UpdateProduct;
 using ProductManagement.Application.Queries.Product.GetProductById;
 using ProductManagement.Application.Queries.Product.GetProducts;
 
@@ -44,6 +45,13 @@ public class ProductController : ControllerBase
     public async Task<IActionResult> Post(CreateProductCommand createProductCommand)
     {
         await _mediator.Send(createProductCommand);
+        return Ok();
+    }
+    
+    [HttpPut(Name = "UpdateProduct")]
+    public async Task<IActionResult> Update(UpdateProductCommand updateProductCommand)
+    {
+        await _mediator.Send(updateProductCommand);
         return Ok();
     }
 }

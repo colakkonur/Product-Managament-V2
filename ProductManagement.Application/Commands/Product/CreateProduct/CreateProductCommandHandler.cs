@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using ProductManagement.Application.Interfaces;
 
-namespace ProductManagement.Application.Commands.Product;
+namespace ProductManagement.Application.Commands.Product.CreateProduct;
 
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
 {
