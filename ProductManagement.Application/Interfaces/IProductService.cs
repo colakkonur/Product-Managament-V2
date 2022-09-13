@@ -11,4 +11,5 @@ public interface IProductService
     Task<GetProductByIdQueryResponse> GetProductById(int id);
     Task AddProduct(CreateProductCommand product);
     Task UpdateProduct(UpdateProductCommand product);
+    Task DeleteProduct(int id);
 }

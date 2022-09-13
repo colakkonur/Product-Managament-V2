@@ -9,11 +9,11 @@ public class CreateProductCommand : IRequest
     public string Tags { get; set; }
     public int Quantity { get; set; }
     public int CategoryId { get; set; }
-    public Prices Prices { get; set; }
-    public Images Images { get; set; }
+    public PricesForCreate Prices { get; set; }
+    public ImagesForCreate Images { get; set; }
 }
 
-public class Prices
+public class PricesForCreate
 {
     public double TaxRate { get; set; }
     public double TaxAmount { get; set; }
@@ -21,7 +21,7 @@ public class Prices
     public double ShippingCost { get; set; }
 }
 
-public class Images
+public class ImagesForCreate
 {
     public string Path { get; set; }
 }

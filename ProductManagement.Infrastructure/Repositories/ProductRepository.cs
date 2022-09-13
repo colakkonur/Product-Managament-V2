@@ -63,8 +63,13 @@ public class ProductRepository : IProductRepository
 
     public async Task DeleteProduct(int id)
     {
-        var vProduct = await _context.Products.FirstOrDefaultAsync(w => w.Id == id);
-        _context.Products.Remove(vProduct);
+        var vProduct = await _context.Products
+            .Include(w => w.Prices)
+            .Include(w => w.Images)
+            .FirstOrDefaultAsync(w => w.Id == id);
+        _context.Remove(vProduct);
+        _context.Remove(vProduct.Images);
+        _context.Remove(vProduct.Prices);
         await _context.SaveChangesAsync();
     }
 }

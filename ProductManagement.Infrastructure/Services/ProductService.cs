@@ -120,4 +120,9 @@ public class ProductService : IProductService
         };
         await _productRepository.UpdateProduct(vProduct);
     }
+
+    public async Task DeleteProduct(int id)
+    {
+        await _productRepository.DeleteProduct(id);
+    }
 }
