@@ -21,15 +21,6 @@ namespace ProductManagement.Infrastructure.Contexts
         public virtual DbSet<Price> Prices { get; set; }
         public virtual DbSet<Product> Products { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySQL("server=94.73.146.49;password=jTy1B3n2.D6_:=gP;user id=u8425942_prod;database=u8425942_prod;");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>(entity =>
@@ -137,13 +128,13 @@ namespace ProductManagement.Infrastructure.Contexts
                 entity.HasOne(d => d.Images)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.ImagesId)
-                    .HasConstraintName("products_ibfk_2");
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("products_ibfk_3");
 
                 entity.HasOne(d => d.Prices)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.PricesId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("products_ibfk_3");
+                    .HasConstraintName("products_ibfk_2");
             });
 
             OnModelCreatingPartial(modelBuilder);
