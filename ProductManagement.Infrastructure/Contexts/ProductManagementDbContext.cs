@@ -17,9 +17,11 @@ namespace ProductManagement.Infrastructure.Contexts
         }
 
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Price> Prices { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,6 +49,21 @@ namespace ProductManagement.Infrastructure.Contexts
                     .WithMany(p => p.InverseMainCategory)
                     .HasForeignKey(d => d.MainCategoryId)
                     .HasConstraintName("categories_ibfk_1");
+            });
+
+            modelBuilder.Entity<Company>(entity =>
+            {
+                entity.ToTable("companies");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.FullAdress)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(200);
             });
 
             modelBuilder.Entity<Image>(entity =>
@@ -89,6 +106,8 @@ namespace ProductManagement.Infrastructure.Contexts
 
                 entity.HasIndex(e => e.CategoryId, "CategoryId");
 
+                entity.HasIndex(e => e.CompanyId, "CompanyId");
+
                 entity.HasIndex(e => e.ImagesId, "ImagesId");
 
                 entity.HasIndex(e => e.PricesId, "PricesId");
@@ -96,6 +115,8 @@ namespace ProductManagement.Infrastructure.Contexts
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
                 entity.Property(e => e.CategoryId).HasColumnType("int(11)");
+
+                entity.Property(e => e.CompanyId).HasColumnType("int(11)");
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(1000)
@@ -125,6 +146,11 @@ namespace ProductManagement.Infrastructure.Contexts
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("products_ibfk_1");
 
+                entity.HasOne(d => d.Company)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.CompanyId)
+                    .HasConstraintName("products_ibfk_4");
+
                 entity.HasOne(d => d.Images)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.ImagesId)
@@ -135,6 +161,38 @@ namespace ProductManagement.Infrastructure.Contexts
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.PricesId)
                     .HasConstraintName("products_ibfk_2");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("users");
+
+                entity.HasIndex(e => e.CompanyId, "CompanyId");
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.CompanyId).HasColumnType("int(11)");
+
+                entity.Property(e => e.Mail)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.NameSurname)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.Position)
+                    .HasMaxLength(200)
+                    .HasDefaultValueSql("'NULL'");
+
+                entity.HasOne(d => d.Company)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.CompanyId)
+                    .HasConstraintName("users_ibfk_1");
             });
 
             OnModelCreatingPartial(modelBuilder);
