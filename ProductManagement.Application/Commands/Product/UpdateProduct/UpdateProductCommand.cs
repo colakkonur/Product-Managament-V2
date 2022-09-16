@@ -4,6 +4,28 @@ namespace ProductManagement.Application.Commands.Product.UpdateProduct;
 
 public class UpdateProductCommand : IRequest
 {
+    public UpdateProductCommand(int id, string sTitle, string sDescription, string sTags, int iQuantity,
+        int iCategoryId, double dTaxRate, double dTaxAmount, double dMargin, double dShippingCost, string sPath)
+    {
+        Id = id;
+        Title = sTitle;
+        Description = sDescription;
+        Tags = sTags;
+        Quantity = iQuantity;
+        CategoryId = iCategoryId;
+        Prices = new PriceForUpdate()
+        {
+            TaxRate = dTaxRate,
+            TaxAmount = dTaxAmount,
+            Margin = dMargin,
+            ShippingCost = dShippingCost
+        };
+        Images = new ImageForUpdate()
+        {
+            Path = sPath
+        };
+    }
+
     public int Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }

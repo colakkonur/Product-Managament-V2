@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ProductManagement.Api.Requests;
 using ProductManagement.Application.Commands.Product.CreateProduct;
-using ProductManagement.Application.Commands.Product.DeleteProduct;
 using ProductManagement.Application.Commands.Product.UpdateProduct;
 using ProductManagement.Application.Queries.Product.GetProductById;
 using ProductManagement.Application.Queries.Product.GetProducts;
@@ -41,41 +41,46 @@ public class ProductController : ControllerBase
         {
             return NotFound(response);
         }
+
         return Ok(response);
     }
-    
-    [HttpGet("GetProductsByCategory/{categoryId}", Name = "GetProductsByCategory")]
+
+    [HttpGet("GetProductsByCategory/{categoryId}")]
     public async Task<IActionResult> GetByCategory(int categoryId)
     {
         var response = await _mediator.Send(new GetProductsByCategoryQuery(categoryId));
         return Ok(response);
     }
-    
-    [HttpGet("GetProductsBySearch/{searchText}", Name = "GetProductsBySearch")]
-    public async Task<IActionResult> GetBySearch(string searchText)
+
+    [HttpGet("GetProductsBySearch")]
+    public async Task<IActionResult> GetBySearch([FromQuery] string searchText)
     {
         var response = await _mediator.Send(new GetProductsBySearchQuery(searchText));
         return Ok(response);
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Post(CreateProductCommand createProductCommand)
     {
         await _mediator.Send(createProductCommand);
         return Ok();
     }
-    
-    [HttpPut]
-    public async Task<IActionResult> Update(UpdateProductCommand updateProductCommand)
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateProductRequest updateProductRequest)
     {
-        await _mediator.Send(updateProductCommand);
+        await _mediator.Send(new UpdateProductCommand(id, updateProductRequest.Title, updateProductRequest.Description,
+            updateProductRequest.Tags, updateProductRequest.Quantity, updateProductRequest.CategoryId,
+            updateProductRequest.Prices.TaxRate, updateProductRequest.Prices.TaxAmount,
+            updateProductRequest.Prices.Margin, updateProductRequest.Prices.ShippingCost,
+            updateProductRequest.Images.Path));
         return Ok();
     }
-    
-    [HttpDelete]
-    public async Task<IActionResult> Delete(DeleteProductCommand deleteProductCommand)
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        await _mediator.Send(deleteProductCommand);
+        await _mediator.Send(id);
         return Accepted();
     }
 }
