@@ -1,7 +1,9 @@
-﻿#nullable disable
-
+﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using ProductManagement.Domain.Entities;
+
+#nullable disable
 
 namespace ProductManagement.Infrastructure.Contexts
 {
@@ -22,6 +24,15 @@ namespace ProductManagement.Infrastructure.Contexts
         public virtual DbSet<Price> Prices { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<User> Users { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseMySQL("server=94.73.146.49;password=jTy1B3n2.D6_:=gP;user id=u8425942_prod;database=u8425942_prod;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -188,6 +199,10 @@ namespace ProductManagement.Infrastructure.Contexts
                 entity.Property(e => e.Position)
                     .HasMaxLength(200)
                     .HasDefaultValueSql("'NULL'");
+
+                entity.Property(e => e.Role)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Company)
                     .WithMany(p => p.Users)
