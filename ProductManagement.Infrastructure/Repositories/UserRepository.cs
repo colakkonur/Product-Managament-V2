@@ -34,7 +34,10 @@ public class UserRepository : IUserRepository
     public async Task UpdateUser(User user)
     {
         var vUser = await _context.Users.FirstOrDefaultAsync(w => w.Id == user.Id);
-        vUser.NameSurname = user.NameSurname;
+        vUser.NameSurname = (user.NameSurname != "" ? user.NameSurname : vUser.NameSurname);
+        vUser.Mail = user.Mail;
+        vUser.Password = user.Password;
+        vUser.Role = user.Role;
         vUser.Position = user.Position;
         vUser.CompanyId = user.CompanyId;
         await _context.SaveChangesAsync();
@@ -44,5 +47,6 @@ public class UserRepository : IUserRepository
     {
         var vUser = await _context.Users.FirstOrDefaultAsync(w => w.Id == id);
         _context.Remove(vUser);
+        await _context.SaveChangesAsync();
     }
 }

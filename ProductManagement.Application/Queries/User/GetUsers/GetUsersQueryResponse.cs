@@ -2,6 +2,7 @@
 
 public class GetUsersQueryResponse
 {
+    public int Id { get; set; }
     public string NameSurname { get; set; }
     public string Mail { get; set; }
     public string Role { get; set; }

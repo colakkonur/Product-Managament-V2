@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.ComponentModel.DataAnnotations;
+using MediatR;
 
 namespace ProductManagement.Application.Commands.Product.UpdateProduct;
 
@@ -27,9 +28,9 @@ public class UpdateProductCommand : IRequest
     }
 
     public int Id { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string Tags { get; set; }
+    [MaxLength(200)] public string Title { get; set; }
+    [MaxLength(1000)] public string Description { get; set; }
+    [MaxLength(200)] public string Tags { get; set; }
     public int Quantity { get; set; }
     public int CategoryId { get; set; }
     public PriceForUpdate Prices { get; set; }
@@ -46,5 +47,5 @@ public class PriceForUpdate
 
 public class ImageForUpdate
 {
-    public string Path { get; set; }
+    [MaxLength(200)] public string Path { get; set; }
 }

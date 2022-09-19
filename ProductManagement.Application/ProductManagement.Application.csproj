@@ -15,10 +15,4 @@
       <ProjectReference Include="..\ProductManagement.Domain\ProductManagement.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Commands\User\CreateUser" />
-      <Folder Include="Commands\User\DeleteUser" />
-      <Folder Include="Commands\User\UpdateUser" />
-    </ItemGroup>
-
 </Project>

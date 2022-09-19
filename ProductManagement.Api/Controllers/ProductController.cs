@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Api.Requests;
 using ProductManagement.Application.Commands.Product.CreateProduct;
+using ProductManagement.Application.Commands.Product.DeleteProduct;
 using ProductManagement.Application.Commands.Product.UpdateProduct;
 using ProductManagement.Application.Queries.Product.GetProductById;
 using ProductManagement.Application.Queries.Product.GetProducts;
@@ -82,7 +83,7 @@ public class ProductController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        await _mediator.Send(id);
+        await _mediator.Send(new DeleteProductCommand(id));
         return Accepted();
     }
 }

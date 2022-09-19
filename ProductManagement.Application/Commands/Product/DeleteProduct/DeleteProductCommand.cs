@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.ComponentModel.DataAnnotations;
+using MediatR;
 
 namespace ProductManagement.Application.Commands.Product.DeleteProduct;
 
@@ -9,5 +10,5 @@ public class DeleteProductCommand : IRequest
         Id = id;
     }
 
-    public int Id { get; set; }
+    [Required] public int Id { get; set; }
 }

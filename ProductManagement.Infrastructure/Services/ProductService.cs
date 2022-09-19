@@ -118,6 +118,7 @@ public class ProductService : IProductService
             Tags = product.Tags,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId,
+            CompanyId = product.CompanyId,
             Prices = new Price()
             {
                 TaxRate = product.Prices.TaxRate,

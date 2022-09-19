@@ -1,27 +1,29 @@
-﻿using MediatR;
+﻿using System.ComponentModel.DataAnnotations;
+using MediatR;
 
 namespace ProductManagement.Application.Commands.Product.CreateProduct;
 
 public class CreateProductCommand : IRequest
 {
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string Tags { get; set; }
-    public int Quantity { get; set; }
-    public int CategoryId { get; set; }
-    public PricesForCreate Prices { get; set; }
+    [Required, MaxLength(200)] public string Title { get; set; }
+    [Required, MaxLength(1000)] public string Description { get; set; }
+    [Required, MaxLength(200)] public string Tags { get; set; }
+    [Required] public int Quantity { get; set; }
+    [Required] public int CategoryId { get; set; }
+    [Required] public int CompanyId { get; set; }
+    [Required] public PricesForCreate Prices { get; set; }
     public ImagesForCreate Images { get; set; }
 }
 
 public class PricesForCreate
 {
-    public double TaxRate { get; set; }
-    public double TaxAmount { get; set; }
-    public double Margin { get; set; }
-    public double ShippingCost { get; set; }
+    [Required] public double TaxRate { get; set; }
+    [Required] public double TaxAmount { get; set; }
+    [Required] public double Margin { get; set; }
+    [Required] public double ShippingCost { get; set; }
 }
 
 public class ImagesForCreate
 {
-    public string Path { get; set; }
+    [MaxLength(200)] public string Path { get; set; }
 }
