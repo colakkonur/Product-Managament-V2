@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProductManagement.Application.Interfaces;
+using ProductManagement.Application.Interfaces.Product;
+using ProductManagement.Application.Interfaces.Security;
+using ProductManagement.Application.Interfaces.User;
 using ProductManagement.Application.Queries.Product.GetProducts;
 using ProductManagement.Infrastructure.Contexts;
 using ProductManagement.Infrastructure.Repositories;
@@ -25,6 +28,8 @@ builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddTransient<ISecurityRepository, SecurityRepository>();
 builder.Services.AddScoped<ISecurityService, SecurityService>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddMediatR(typeof(GetProductsQuery).Assembly);
 
 // API'yi tüm platformlardan gelen isteklere açık hale getirme

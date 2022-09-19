@@ -5,7 +5,7 @@ using ProductManagement.Application.Queries.Product.GetProducts;
 using ProductManagement.Application.Queries.Product.GetProductsByCategory;
 using ProductManagement.Application.Queries.Product.GetProductsBySearch;
 
-namespace ProductManagement.Application.Interfaces;
+namespace ProductManagement.Application.Interfaces.Product;
 
 public interface IProductService
 {

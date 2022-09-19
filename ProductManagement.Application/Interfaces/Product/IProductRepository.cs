@@ -1,7 +1,5 @@
-﻿using ProductManagement.Domain.Entities;
-
-namespace ProductManagement.Application.Interfaces;
-
+﻿namespace ProductManagement.Application.Interfaces.Product;
+using Domain.Entities;
 public interface IProductRepository
 {
     Task<List<Product>> GetProducts();

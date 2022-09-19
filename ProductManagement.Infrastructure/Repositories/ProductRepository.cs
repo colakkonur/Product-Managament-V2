@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductManagement.Application.Interfaces;
+using ProductManagement.Application.Interfaces.Product;
 using ProductManagement.Domain.Entities;
 using ProductManagement.Infrastructure.Contexts;
 

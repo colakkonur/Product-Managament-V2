@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using ProductManagement.Application.Interfaces;
+using ProductManagement.Application.Interfaces.Product;
 
 namespace ProductManagement.Application.Queries.Product.GetProductsByCategory;
 

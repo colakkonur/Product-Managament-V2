@@ -1,6 +1,7 @@
 ﻿using ProductManagement.Application.Commands.Product.CreateProduct;
 using ProductManagement.Application.Commands.Product.UpdateProduct;
 using ProductManagement.Application.Interfaces;
+using ProductManagement.Application.Interfaces.Product;
 using ProductManagement.Application.Queries.Product.GetProductById;
 using ProductManagement.Application.Queries.Product.GetProducts;
 using ProductManagement.Application.Queries.Product.GetProductsByCategory;

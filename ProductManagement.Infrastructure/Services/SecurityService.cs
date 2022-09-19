@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ProductManagement.Application.Commands.Security.AuthenticateUser;
 using ProductManagement.Application.Interfaces;
+using ProductManagement.Application.Interfaces.Security;
 
 namespace ProductManagement.Infrastructure.Services;
 
