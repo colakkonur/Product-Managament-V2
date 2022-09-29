@@ -35,7 +35,6 @@ public class UserController : ControllerBase
         {
             return NotFound(response);
         }
-
         return Ok(response);
     }
 
