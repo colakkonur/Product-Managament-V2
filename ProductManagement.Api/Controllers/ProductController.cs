@@ -43,7 +43,6 @@ public class ProductController : ControllerBase
         {
             return NotFound(response);
         }
-
         return Ok(response);
     }
 
